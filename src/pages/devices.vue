@@ -34,21 +34,21 @@
               <th class="span3 sortable">
                 <span class="line"></span>路径
               </th>
-              <!--<th class="span2 sortable">
+              <th class="span2 sortable">
                 <span class="line"></span>CPU
               </th>
               <th class="span2 sortable">
                 <span class="line"></span>内存总大小
-              </th>-->
+              </th>
               <th class="span2">
                 <span class="line"></span>状态
               </th>
               <!--<th class="span3">
                 <span class="line"></span>设备详情
               </th>-->
-              <!--<th class="span3">
+              <th class="span3">
                 <span class="line"></span>查看
-              </th>-->
+              </th>
 
               <th class="span4">
                 <span class="line"></span>操作
@@ -64,12 +64,18 @@
               <td>
                 {{device.deployPath}}
               </td>
-              <!--<td>
-                &#45;&#45;
+              <td v-if="!device.online">
+                --
               </td>
-              <td>
-                &#45;&#45;
-              </td>-->
+              <td v-else>
+                {{device.cpuclock}} M
+              </td>
+              <td v-if="!device.online">
+                --
+              </td>
+              <td v-else>
+                {{device.ramsize}} M
+              </td>
               <td>
                 <span class="label label-primary" v-if="!device.online">离线</span>
                 <span class="label label-success" v-else>在线</span>
@@ -78,7 +84,7 @@
                 {{device.description}}
               </td>-->
 
-              <!--<td>
+              <td>
                 <ul class="ulactions" v-if="!device.online">
                   <li>
                     <input type="button" class="btn-flat primary" value="进程" data-toggle="modal"
@@ -99,7 +105,7 @@
                            @click="diskDetails($event)"/>
                   </li>
                 </ul>
-              </td>-->
+              </td>
 
               <td v-if="!device.virtual">
                 <ul class="ulactions">
@@ -268,7 +274,8 @@
         taskprocess: [],
         disks: []
       }
-    }, created() {
+    },
+    created() {
       let projectId = this.getCookie('projectId');
       let username = this.getCookie('username');
       let password = this.getCookie('password');
@@ -283,6 +290,11 @@
         }
       }).then(res => {
         this.devices = res.data.data
+
+        for (let j = 0; j < this.devices.length; j++) {
+          this.devices[j].cpuclock = ((this.devices[j].cpuclock) / 1024).toFixed(5);
+          this.devices[j].ramsize = ((this.devices[j].ramsize) / 1024).toFixed(5);
+        }
       })
         .catch(err => {
           console.log(err);
