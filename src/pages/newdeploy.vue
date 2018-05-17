@@ -515,7 +515,8 @@
 
           if (ifexist == true) {
 
-            this.deviceDeployDetail = this.deployDetailInfo2[i].info;
+            console.log(this.deployDetailInfo2);
+            this.deviceDeployDetail = this.deployDetailInfo2[0].info;
 
             console.log("已部署的设备的信息-----------------");
             console.log(this.deviceDeployDetail);
