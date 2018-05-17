@@ -312,6 +312,11 @@
           }
         }).then(res => {
           this.devices = res.data.data
+
+          for (let j = 0; j < this.devices.length; j++) {
+            this.devices[j].cpuclock = ((this.devices[j].cpuclock) / 1024).toFixed(5);
+            this.devices[j].ramsize = ((this.devices[j].ramsize) / 1024).toFixed(5);
+          }
         }).catch(err => {
           console.log(err);
         });
