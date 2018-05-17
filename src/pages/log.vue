@@ -228,17 +228,25 @@
     },
     methods: {
       searchAll: function () {
-        this.startTime = this.value4[0];
-        this.endTime = this.value4[1];
+        console.log("搜索----");
+        console.log(this.value4);
+        console.log("A");
+        if(this.value4 != null){
+          console.log("空不该进")
+          this.startTime = this.value4[0];
+          this.endTime = this.value4[1];
 
-        this.startTimeTemp = Math.floor(new Date(this.startTime).getTime() / 1000);
-        this.endTimeTemp = Math.floor(new Date(this.endTime).getTime() / 1000);
+          this.startTimeTemp = Math.floor(new Date(this.startTime).getTime() / 1000);
+          this.endTimeTemp = Math.floor(new Date(this.endTime).getTime() / 1000);
 
-        let start = parseInt(this.startTimeTemp);
-        let end = parseInt(this.endTimeTemp);
+          let start = parseInt(this.startTimeTemp);
+          let end = parseInt(this.endTimeTemp);
 
-        console.log(typeof(this.startTimeTemp));
-        console.log(this.startTimeTemp);
+          console.log(typeof(this.startTimeTemp));
+          console.log(this.startTimeTemp);
+        }
+
+        console.log("B");
 
         //  /deploylogs
 
@@ -287,8 +295,7 @@
           formData.append('state', this.compState);
           searchObj.state = this.compState;
         }
-        console.log(this.value4.length);
-        if (this.value4.length != 0) {
+        if (this.value4 != null) {
           formData.append('createTime', this.startTimeTemp);
           formData.append('finishTime', this.endTimeTemp);
 
