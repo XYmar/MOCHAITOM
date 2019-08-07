@@ -34,7 +34,8 @@
               <div class="span12 field-box">
                 <label>上传文件:</label>
                 <div class="span9 uploadfile" style="margin-left: -1px;">
-                  <uploader :autoStart="autoStart"
+                  <uploader :options="options"
+                            :autoStart="autoStart"
                             :file-status-text="statusText"
                             :started="started"
                             ref="uploader"
@@ -121,7 +122,8 @@
         options: {
           // 可通过 https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js 示例启动服务
           //target: '//localhost:3000/upload',
-          testChunks: false
+          chunkSize: 1024 * 1024,
+          testChunks: true
         },
         attrs: {
           accept: 'image/*'
@@ -210,7 +212,7 @@
         }else if (!((this.deployPath).match(pattern))){
           layer.msg("路径格式不正确!");
         }else {
-          //layer.load();
+          layer.load();
           event.preventDefault();
           let formData = new FormData();
 
@@ -261,11 +263,11 @@
             }
           }).then(res => {
 
-            //layer.closeAll('loading');
+            layer.closeAll('loading');
 
             this.$router.replace({path: '/components'})
           }).catch(err => {
-            //layer.closeAll('loading');
+            layer.closeAll('loading');
             layer.msg("添加失败！");
 
 

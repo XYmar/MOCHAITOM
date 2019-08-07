@@ -122,7 +122,8 @@
         description: '',
         chboxValue: []   //选中的组件
       }
-    },created(){
+    },
+    created(){
       let username = this.getCookie('username');
       let password = this.getCookie('password');
 
